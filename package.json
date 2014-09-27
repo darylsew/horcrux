@@ -7,7 +7,7 @@
   "dependencies" : {
     "express" : "*",
     "mongoose" : "*",
-    "jade" : "*",
+    "ejs" : "*",
     "superagent" : "*",
     "passport" : "*",
     "passport-local" : "*",
