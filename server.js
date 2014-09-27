@@ -3,6 +3,7 @@ var express = require('express'),
     jade = require('jade');
 
 var auth = require('./auth');
+var web = require('./multicaster');
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
@@ -35,3 +36,4 @@ app.get('/move', function(req,res){
 app.listen(3000);
 
 auth.requestGoogleAuth();
+web.get('http://www.google.com/index.html');
