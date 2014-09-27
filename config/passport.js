@@ -47,7 +47,7 @@ module.exports = function(passport) {
 
   passport.use('local-login', new LocalStrategy({
     usernameField : 'email',
-    passowrdField : 'password'
+    passwordField : 'password'
   },
   function(email,pass,done){
     console.log("Searching Database");
@@ -55,11 +55,11 @@ module.exports = function(passport) {
       if (err) return done(err);
       if (!user){
         console.log("No user found");
-        return done(null,false);
+        return done(null,false, {message: "Incorrect Username"});
       }
       if (!user.validPassword(pass)){
         console.log("Pass does not match");
-        return done(null,false);
+        return done(null,false, {message: "Incorrect Password"});
       }
       return done(null,user);
     });
