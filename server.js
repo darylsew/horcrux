@@ -1,37 +1,47 @@
 var express = require('express'),
     app = express(),
-    jade = require('jade');
+    jade = require('jade'),
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    session = require('express-session'),
+    LocalStrat = require('passport-local').Strategy;
 
 var auth = require('./auth');
 var web = require('./multicaster');
+var configDB = require('./config/database.js');
+
+mongoose.connect(configDB.url);
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view options', {layout: false});
 
-app.get('/', function(req,res){
-  res.render('index',{title: "Home"});
-});
+app.use(cookieParser());
+app.use(bodyParser());
 
-app.get('/cd', function(req,res){
+app.use(session({ secret: 'darudeandthesandstorms' })); 
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use(flash()); 
 
-});
+passport.use(new LocalStrat(
+  function(username,password,done){
+    User.findOne({ username: username}, function (err,user){
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, {message : "Incorrect username"});
+      }
+      if (!user.validPassword(password)){
+        return done(null, false, {messsage : "Incorrect password"});
+      }
+        return done(null,user);
+     });
+   }
+));
 
-app.get('/mkdir', function(req,res){
-
-});
-
-app.get('/rm', function(req,res){
-
-});
-
-app.get('/upload', function(req,res){
-
-});
-
-app.get('/move', function(req,res){
-
-});
+require('./app/routes.js')(app,passport);
 
 app.listen(3000);
 
