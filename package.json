@@ -7,7 +7,6 @@
   "dependencies" : {
     "express" : "*",
     "mongoose" : "*",
-    "stylus" : "*",
     "jade" : "*",
     "superagent" : "*",
     "passport" : "*",
