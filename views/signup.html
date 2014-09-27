@@ -12,17 +12,17 @@
   <header>
     <h1 class="logo">horcru<span>x</span></h1>
     <nav>
-      <a href="#">Log in</a>
-      <a href="#">Sign up</a>
+      <a href="/login">Log in</a>
+      <a href="/signup">Sign up</a>
     </nav>
   </header>
   <main>
-    <form action="/user_auth" method="post">
-      <label>Log in</label>
+    <form action="/create_acc" method="post">
+      <label>Sign up</label>
       <p style="color: blue">{{i_message}}</p>
       <p style="color: red">{{e_message}}</p>
-      <input pattern=".{1,}" name="email" type="email" placeholder="email"/>
-      <input pattern=".{1,}" name="password" type="password" placeholder="password"/>
+      <input required name="email" type="email" placeholder="email"/>
+      <input required name="password" type="password" placeholder="password"/>
       <input type="submit" value="Submit"/>
     </form>
   </main>
