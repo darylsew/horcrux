@@ -16,7 +16,7 @@ module.exports = function(passport) {
   passport.use('local-signup', new LocalStrategy({
     usernameField : 'email',
     passwordField : 'password',
-    passReqToCallback : true 
+    passReqToCallback : true
   },
   function(req, email, password, done) {
 
@@ -42,8 +42,25 @@ module.exports = function(passport) {
         });
       }
 
-      });    
+      });
 
+    });
+
+  }));
+
+  passport.use('local-login', new LocalStrategy({
+    usernameField : 'email',
+    passowrdField : 'password',
+    passReqToCallback : true
+  },
+  function(req,email,pass,done){
+    User.findOne({'local.email' : email}, function(err,user){
+      if (err) return done(err);
+      if (!user) return done(null,false,req.flash('loginMessage','No user found'));
+      if (!user.validPassword(password)){
+        return done(null,false,req.flash('loginMessage', 'Invalid password'));
+      }
+      return done(null,user);
     });
 
   }));
