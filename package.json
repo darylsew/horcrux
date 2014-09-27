@@ -1,7 +1,7 @@
 {
   "name" : "horcrux",
   "version" : "0.4.2.0",
-  "repository" {
+  "repository" : {
     "type" : "git",
     "url" : "http://github.com/darylsew/horcrux.git"
   },
