@@ -55,11 +55,11 @@ module.exports = function(passport) {
       if (err) return done(err);
       if (!user){
         console.log("No user found");
-        return done(null,false, {message: "Incorrect Username"});
+        return done(null,false);
       }
       if (!user.validPassword(pass)){
         console.log("Pass does not match");
-        return done(null,false, {message: "Incorrect Password"});
+        return done(null,false);
       }
       return done(null,user);
     });
