@@ -4,7 +4,7 @@ module.exports = function(app,passport){
     res.render('horcrux', {
       title: "Home",
       user: req.user,
-      files: User.findOne({"email" : req.user})
+      files: User.findOne({"email" : req.user}).files
     });
   });
 
