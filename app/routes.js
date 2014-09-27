@@ -22,10 +22,12 @@ module.exports = function(app,passport){
   });
 
   app.post('/user_auth',
-      passport.authenticate('local-login',
-        { successRedirect : '/',
-          failureRedirect : '/login'})
-      );
+      passport.authenticate('local-login', {
+          successRedirect : '/',
+          failureRedirect : '/login',
+          failureFlash : true
+        })
+  });
 
   app.post('/signup', passport.authenticate('local-signup',{
     successRedirect: '/',
@@ -35,6 +37,10 @@ module.exports = function(app,passport){
 
   app.get('/cd', function(req,res){
 
+  });
+
+  app.get('/browse', function(req,res){
+    res.render("browse.html");
   });
 
   app.get('/mkdir', function(req,res){
