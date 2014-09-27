@@ -18,10 +18,10 @@ mongoose.connect(configDB.url);
 
 require('./config/passport')(passport);
 
-app.use(express.static(__dirname + '/views'));
-
+app.use(express.static(__dirname+'/public'))
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
 app.set('view options', {layout: false});
 
 app.use(cookieParser());
