@@ -7,6 +7,23 @@
   <link rel="stylesheet" type="text/css" href="css/login.css"/>
   <script src="js/jquery.js"></script>
   <script src="js/script.js"></script>
+  <script>
+    function submit() {
+      inputs = "x"  //grab then inputs of your form #loginform
+      $.ajax ({
+        url: "urltoyourloginphp.php",
+        data: inputs,
+        success: function() {
+          alert('logged in');
+        }
+      })
+    }
+
+    $(document).ready(function(){
+      $("input").keypress(function(e){ if (e.charCode===13) submit(); });
+      $("#submit").click(submit);
+    });
+  </script>
 </head>
 <body>
   <header>
@@ -17,31 +34,12 @@
     </nav>
   </header>
   <main>
-    <div class="side">
-      <ul>
-        <li>Hello</li>
-        <li>World</li>
-      </ul>
-    </div>
-    <div class="browse">
-      <div class="actions">
-        <input  class="search" type="text"/>
-        <button class="upload"/>
-        <button class="folder"/>
-      </div>
-      <table>
-        <tr>
-          <td>Jill</td>
-          <td>Smith</td> 
-          <td>50</td>
-        </tr>
-        <tr>
-          <td>Eve</td>
-          <td>Jackson</td> 
-          <td>94</td>
-        </tr>
-      </table>
-    </div>
+    <form>
+      <label>Log in</label>
+      <input type="email"/>
+      <input type="password"/>
+      <button id="submit">Submit</button>
+    </form>
   </main>
 </body>
 </html>
