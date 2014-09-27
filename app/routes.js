@@ -1,6 +1,6 @@
 module.exports = function(app,passport){
 
-  app.get('/', function(req,res){
+  app.get('/', isLoggedIn, function(req,res){
     res.render('horcrux', {
       title: "Home",
     user: req.user
@@ -16,6 +16,12 @@ module.exports = function(app,passport){
         { successRedirect : '/',
           failureRedirect : true})
       );
+
+  app.post('/signup', passport.authenticate('local-signup',{
+    successRedirect: '/',
+    failureRedirect: '/signup',
+    failureFlash : true
+  }));
 
   app.get('/cd', function(req,res){
 

@@ -14,6 +14,8 @@ var configDB = require('./config/database.js');
 
 mongoose.connect(configDB.url);
 
+require('./config/passport')(passport);
+
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view options', {layout: false});
