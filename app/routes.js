@@ -18,22 +18,25 @@ module.exports = function(app,passport){
   });
 
   app.get('/login', function(req,res){
-    res.render('login.html');
+    res.render('login.html', {
+      e_message : req.flash("error"),
+      i_message : req.flash("info")
+    });
   });
 
-  app.post('/user_auth', function (req,res){
-      console.log("Hit POST!");
-      console.log(JSON.stringify(req.body));
+  app.post('/user_auth',
       passport.authenticate('local-login', {
           successRedirect : '/',
-          failureRedirect : '/browse',
-          failureFlash : true
-        })(req,res)});
+          failureRedirect : '/login',
+          successFlash : "Logged In!",
+          failureFlash : "Incorrect Credentials"
+        }));
 
   app.post('/signup', passport.authenticate('local-signup',{
     successRedirect: '/',
     failureRedirect: '/signup',
-    failureFlash : true
+    successFlash : "Signed Up!
+    failureFlash : "Not Valid Sign-Up Information"
   }));
 
   app.get('/cd', function(req,res){
