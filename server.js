@@ -17,7 +17,6 @@ var configDB = require('./config/database.js');
 
 mongoose.connect(configDB.url);
 
-require('./config/passport')(passport);
 
 app.use(express.static(__dirname+'/public'))
 app.engine('html', mustacheExpress());
@@ -33,22 +32,7 @@ app.use(passport.initialize());
 app.use(passport.session()); 
 app.use(flash());
 
-/*passport.use(new LocalStrat(
-  function(username,password,done){
-    User.findOne({ username: username}, function (err,user){
-      if (err) { return done(err); }
-      if (!user) {
-        console.log("Usr not found");
-        return done(null, false, {login_msg : "Incorrect username"});
-      }
-      if (!user.validPassword(password)){
-        console.log("Pass does not match");
-        return done(null, false, {login_msg : "Incorrect password"});
-      }
-        return done(null,user);
-     });
-   }
-));*/
+require('./config/passport')(passport);
 
 require('./app/routes.js')(app,passport);
 
