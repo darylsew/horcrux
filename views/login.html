@@ -9,14 +9,15 @@
   <script src="js/script.js"></script>
   <script>
     function submit() {
-      inputs = "x"  //grab then inputs of your form #loginform
+      inputs = "blaze"  //grab then inputs of your form #loginform
       $.ajax ({
-        url: "urltoyourloginphp.php",
+        type: "POST"
+        url: "user_auth",
         data: inputs,
         success: function() {
           alert('logged in');
         }
-      })
+      });
     }
 
     $(document).ready(function(){
