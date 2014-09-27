@@ -8,6 +8,7 @@
     "express" : "*",
     "mongoose" : "*",
     "consolidate" : "*",
+    "mustache" : "*",
     "superagent" : "*",
     "passport" : "*",
     "passport-local" : "*",
