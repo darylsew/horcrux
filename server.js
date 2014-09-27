@@ -2,6 +2,8 @@ var express = require('express'),
     app = express(),
     jade = require('jade');
 
+var auth = require('./auth');
+
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view options', {layout: false});
