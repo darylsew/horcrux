@@ -8,8 +8,8 @@ module.exports = function(app,passport){
   });
 
   app.get('/auth', function(req,res){
-    console.log("This does not work, as auth is jade.");
-    res.render('auth');
+    //console.log("This does not work, as auth is jade.");
+    res.render('auth.html');
   });
 
   app.get('/auth2', function(req,res){
