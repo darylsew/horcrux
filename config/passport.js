@@ -19,28 +19,25 @@ module.exports = function(passport) {
     passReqToCallback : true
   },
   function(req, email, password, done) {
-
     process.nextTick(function() {
 
       User.findOne({ 'local.email' :  email }, function(err, user) {
-        if (err)
-        return done(err);
+        if (err) return done(err);
 
-      if (user) {
-        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-      } else {
+        if (user) {
+          return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+        } else {
 
-        var newUser = new User();
+          var newUser = new User();
 
-        newUser.local.email    = email;
-        newUser.local.password = newUser.generateHash(password);
+          newUser.local.email    = email;
+          newUser.local.password = newUser.generateHash(password);
 
-        newUser.save(function(err) {
-          if (err)
-          throw err;
-        return done(null, newUser);
-        });
-      }
+          newUser.save(function(err) {
+            if (err) throw err;
+            return done(null, newUser);
+          });
+        }
 
       });
 
@@ -50,15 +47,19 @@ module.exports = function(passport) {
 
   passport.use('local-login', new LocalStrategy({
     usernameField : 'email',
-    passowrdField : 'password',
-    passReqToCallback : true
+    passowrdField : 'password'
   },
-  function(req,email,pass,done){
-    User.findOne({'local.email' : email}, function(err,user){
+  function(email,pass,done){
+    console.log("Searching Database");
+    User.findOne({'email' : email}, function(err,user){
       if (err) return done(err);
-      if (!user) return done(null,false,req.flash('loginMessage','No user found'));
-      if (!user.validPassword(password)){
-        return done(null,false,req.flash('loginMessage', 'Invalid password'));
+      if (!user){
+        console.log("No user found");
+        return done(null,false);
+      }
+      if (!user.validPassword(pass)){
+        console.log("Pass does not match");
+        return done(null,false);
       }
       return done(null,user);
     });
