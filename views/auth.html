@@ -27,6 +27,15 @@
        * @param {Object} authResult Authorization result.
        */
       function handleAuthResult(authResult) {
+        /**
+         * Load the Drive API client.
+         * @param {Function} callback Function to call when the client is loaded.
+         */
+        function loadClient(callback) {
+          gapi.client.load('drive', 'v2', callback);
+        }
+
+/*
         var authButton = document.getElementById('authorizeButton');
         var filePicker = document.getElementById('filePicker');
         authButton.style.display = 'none';
@@ -44,6 +53,23 @@
                   handleAuthResult);
           };
         }
+        */
+
+        // GET THE DRIVE STUFF
+        gapi.client.load('drive', 'v2', function() {
+          console.log('drive');
+          // TRYING TO MAKE REQUESTS
+          gapi.client.request({
+            'path': '/drive/v2/files',
+            'method': 'GET'//,
+            //'params': {'uploadType': 'multipart'}//,
+            //'headers': { 'Content-Type': 'multipart/mixed; boundary="' + boundary + '"' },
+            //'body': multipartRequestBody
+          }).execute(function(x){
+            console.log(x);
+          });
+        });
+
       }
 
       /**
@@ -52,6 +78,7 @@
        * @param {Object} evt Arguments from the file selector.
        */
       function uploadFile(evt) {
+        alert('uploaded');
         gapi.client.load('drive', 'v2', function() {
           var file = evt.target.files[0];
           insertFile(file);
@@ -104,6 +131,53 @@
             };
           }
           request.execute(callback);
+        }
+      }
+
+      /**
+       * Print a file's metadata.
+       *
+       * @param {String} fileId ID of the file to print metadata for.
+       */
+      function printFile(fileId) {
+        var request = gapi.client.drive.files.get({
+            'id': fileId
+        });
+        request.execute(function(resp) {
+          if (!resp.error) {
+            console.log('Title: ' + resp.title);
+            console.log('Description: ' + resp.description);
+            console.log('MIME type: ' + resp.mimeType);
+          } else if (resp.error.code == 401) {
+            // Access token might have expired.
+            checkAuth();
+          } else {
+            console.log('An error occured: ' + resp.error.message);
+          }
+        });
+      }
+
+      /**
+       * Download a file's content.
+       *
+       * @param {File} file Drive File instance.
+       * @param {Function} callback Function to call when the request is complete.
+       */
+      function downloadFile(file, callback) {
+        if (file.downloadUrl) {
+          var accessToken = gapi.auth.getToken().access_token;
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', file.downloadUrl);
+          xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+          xhr.onload = function() {
+            callback(xhr.responseText);
+          };
+          xhr.onerror = function() {
+            callback(null);
+          };
+          xhr.send();
+        } else {
+          callback(null);
         }
       }
     </script>
