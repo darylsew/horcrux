@@ -16,7 +16,9 @@ mongoose.connect(configDB.url);
 
 require('./config/passport')(passport);
 
-app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/views'));
+
+/*app.set('views', __dirname + '/views');*/
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 app.set('view options', {layout: false});
