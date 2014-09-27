@@ -24,7 +24,6 @@ app.use(bodyParser());
 app.use(session({ secret: 'darudeandthesandstorms' })); 
 app.use(passport.initialize());
 app.use(passport.session()); 
-app.use(flash()); 
 
 passport.use(new LocalStrat(
   function(username,password,done){
