@@ -12,23 +12,23 @@ app.get('/', function(req,res){
   res.render('index',{title: "Home"});
 });
 
-app.get('/cd' function(req,res){
+app.get('/cd', function(req,res){
 
 });
 
-app.get('/mkdir' function(req,res){
+app.get('/mkdir', function(req,res){
 
 });
 
-app.get('/rm' function(req,res){
+app.get('/rm', function(req,res){
 
 });
 
-app.get('/upload' function(req,res){
+app.get('/upload', function(req,res){
 
 });
 
-app.get('/move' function(req,res){
+app.get('/move', function(req,res){
 
 });
 
