@@ -21,12 +21,14 @@ module.exports = function(app,passport){
     res.render('login.html');
   });
 
-  app.post('/user_auth',
+  app.post('/user_auth', function (req,res){
+      console.log("Hit POST!");
+      console.log(JSON.stringify(req.body));
       passport.authenticate('local-login', {
           successRedirect : '/',
-          failureRedirect : '/login',
+          failureRedirect : '/browse',
           failureFlash : true
-        }));
+        })(req,res)});
 
   app.post('/signup', passport.authenticate('local-signup',{
     successRedirect: '/',
@@ -61,7 +63,6 @@ module.exports = function(app,passport){
 };
 
 function isLoggedIn(req,res,next){
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) return next();
   res.redirect('/login');
 }
