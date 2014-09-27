@@ -7,6 +7,10 @@ module.exports = function(app,passport){
     });
   });
 
+  app.get('/auth', function(req,res){
+    res.render('auth');
+  });
+
   app.post('/login',
       passport.authenticate('local',
         { successRedirect : '/',
