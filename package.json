@@ -18,6 +18,7 @@
     "express-session" : "*",
     "bcrypt-nodejs" : "*",
     "request" : "*",
-    "dropbox" : "*"
+    "dropbox" : "*",
+    "connect-flash" : "*"
   }
 }
