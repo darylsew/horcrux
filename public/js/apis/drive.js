@@ -42,11 +42,10 @@ function loadClient(callback) {
 function handleAuthResult(authResult) {
   if (authResult && !authResult.error) {
     // Access token has been successfully retrieved, requests can be sent to the API.
-    alert("We have your drive, thx.");
 
     // GET THE DRIVE STUFF
     loadClient(function() {
-      console.log('drive');
+      alert("We have your drive, thx.");
       // TRYING TO MAKE REQUESTS
       gapi.client.request({
         'path': '/drive/v2/files',

@@ -9,5 +9,5 @@
   float: left;
   background: transparent url(../resources/magnifying-glass.png) no-repeat scroll 5px center;
 }
-.upload { background: #DDD url(../resources/up-arrow.png) no-repeat scroll center center; }
-.folder { background: #DDD url(../resources/add.png) no-repeat scroll center center; }
+.upload { background-image: url(../resources/up-arrow.png); }
+.folder { background-image: url(../resources/add.png); }

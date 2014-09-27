@@ -55,26 +55,24 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="g3759">
+       id="g2997">
       <rect
          y="450.4668"
          x="278.4758"
          height="151.42856"
          width="187.14287"
          id="rect2985"
-         style="color:#000000;fill:#dcdcdc;fill-opacity:0;stroke:none;stroke-width:6.79199982000000002;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         style="color:#000000;fill:#dcdcdc;fill-opacity:0;stroke:none;stroke-width:6.79199982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       <g
-         style="fill:#888888;fill-opacity:1;stroke:none"
-         transform="matrix(0.58850801,0,0,0.58850801,153.09446,239.22264)"
-         id="g3767">
+         id="g2993">
         <path
            style="color:#000000;fill:#888888;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.79199982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           d="m 372.05975,422.84443 -65.97456,69.5165 131.92411,0 -65.94955,-69.5165 z"
+           d="m 372.0546,484.06997 -38.82655,40.91102 77.63839,0 -38.81184,-40.91102 z"
            id="rect3757"
            inkscape:connector-curvature="0" />
         <path
            style="color:#000000;fill:#888888;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.79199982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-           d="m 347.58296,498.79076 48.92857,0 0,53.57143 -48.92857,0 z"
+           d="m 357.64982,532.765 28.79485,0 0,31.52721 -28.79485,0 z"
            id="rect3764"
            inkscape:connector-curvature="0" />
       </g>

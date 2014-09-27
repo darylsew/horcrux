@@ -34,15 +34,15 @@ button {
 	height: 28px;
 	border: 1px solid #999;
 	border-radius: 5px;
-	background-color: #DDD;
+	background-color: #FCFCFC;
 
 	-webkit-transition: background-color 0.2s ease-out;
-  -moz-transition: background-color 0.2s ease-out;
-  -o-transition: background-color 0.2s ease-out;
-  transition: background-color 0.2s ease-out;
+	-moz-transition: background-color 0.2s ease-out;
+	-o-transition: background-color 0.2s ease-out;
+	transition: background-color 0.2s ease-out;
 }
 button:hover {
-	background-color: #EEE;
+	background-color: #DDD;
 }
 
 .logo { color: black; font-family: "Josefin Sans"; font-weight: lighter; }
