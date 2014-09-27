@@ -16,7 +16,6 @@ mongoose.connect(configDB.url);
 require('./config/passport')(passport);
 
 app.set('views', __dirname + '/views');
-app.engine('.html', require('ejs').renderFile);
 app.set('view options', {layout: false});
 
 app.use(cookieParser());
