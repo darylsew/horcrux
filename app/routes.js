@@ -12,6 +12,10 @@ module.exports = function(app,passport){
     res.render('auth');
   });
 
+  app.get('/auth2', function(req,res){
+    res.render('auth2.html');
+  });
+
   app.get('/login', function(req,res){
     res.render('login.html');
   });

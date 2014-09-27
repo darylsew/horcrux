@@ -1,0 +1,18 @@
+<!doctype html>
+<head>
+  <title>horcrux</title>
+  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <script type="text/javascript">
+    var request = require('request');
+    request('http://www.google.com', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body) // Print the google web page.
+      }
+    })
+  </script>
+</body>
+</html>

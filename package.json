@@ -15,6 +15,7 @@
     "cookie-parser" : "*",
     "body-parser" : "*",
     "express-session" : "*",
-    "bcrypt-nodejs" : "*"
+    "bcrypt-nodejs" : "*",
+    "request" : "*"
   }
 }
