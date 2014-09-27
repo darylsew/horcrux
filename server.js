@@ -21,6 +21,11 @@ app.set('view options', {layout: false});
 app.use(cookieParser());
 app.use(bodyParser());
 
+app.use(session({ secret: 'darudeandthesandstorms' })); 
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use(flash()); 
+
 passport.use(new LocalStrat(
   function(username,password,done){
     User.findOne({ username: username}, function (err,user){
@@ -36,43 +41,7 @@ passport.use(new LocalStrat(
    }
 ));
 
-app.get('/', function(req,res){
-  res.render('index', {
-      title: "Home",
-      user: req.user
-    });
-});
-
-app.post('/login',
-    passport.authenticate('local',
-      { successRedirect : '/',
-        failureRedirect : true})
-    );
-
-app.get('/cd', function(req,res){
-
-});
-
-app.get('/mkdir', function(req,res){
-
-});
-
-app.get('/rm', function(req,res){
-
-});
-
-app.get('/upload', function(req,res){
-
-});
-
-app.get('/move', function(req,res){
-
-});
-
-function isLoggedIn(req,res,next){
-  if (req.isAuthenticated()) return next();
-  res.redirect('/login');
-}
+require('./app/routes.js')(app,passport);
 
 app.listen(3000);
 
