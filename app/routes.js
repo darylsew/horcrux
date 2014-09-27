@@ -1,7 +1,7 @@
 module.exports = function(app,passport){
 
   app.get('/', function(req,res){
-    res.render('index', {
+    res.render('horcrux', {
       title: "Home",
     user: req.user
     });
