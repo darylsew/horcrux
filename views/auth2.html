@@ -7,18 +7,34 @@
   <script src="js/jquery.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.10.2/dropbox.min.js"></script>
   <script>
-/*    $(document).ready(function(){
+  /*
+    $(document).ready(function(){
       var a = $.get("https://www.dropbox.com/1/oauth2/authorize", {response_type: "code", client_id: "76znvyd4xnr6rlq"});
       console.log(a);
     });*/
     $(document).ready(function() {
       var client = new Dropbox.Client({ key: '76znvyd4xnr6rlq' });
+/*
+      client.getAccountInfo(function(error, accountInfo) {
+        if (error) {
+          client.reset();
+          return console.log(error);  // Something went wrong.
+        }
+
+        alert("Hello, " + accountInfo.name + "!");
+      });*/
+
       var hwButt = $("#hwButt")[0];
       var dlButt = $("#dlButt")[0];
       hwButt.addEventListener("click", function() {
         client.authenticate(function () {
-          client.writeFile('hello.txt', 'Hello, World!', function () {
-              alert('File written!');
+          client.writeFile('hello.txt', 'Hello, World!', function (error) {
+            if (error) {
+                alert('Error: ' + error);
+                client.reset(error);
+            } else {
+                alert('File written successfully!');
+            }
           });
         });
       });
@@ -26,7 +42,9 @@
         client.authenticate(function () {
           client.readFile("hello.txt", function(error, data) {
             if (error) {
-              return showError(error);  // Something went wrong.
+                alert('Error: ' + error);
+                client.reset(error);
+                return;
             }
             alert(data);  // data has the file's contents
           });    
