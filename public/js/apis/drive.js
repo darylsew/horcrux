@@ -1,6 +1,15 @@
 var CLIENT_ID = '962521019900-vp3bq6smivsdlm7id06d5sqqdtju8226.apps.googleusercontent.com';
 var SCOPES = 'https://www.googleapis.com/auth/drive';
 
+$(document).ready(function(){
+  // LOAD IN THE DRIVE NONSENSE
+  var bodyEl = document.body;
+  var scriptEl = document.createElement('script');
+  scriptEl.type = 'text/javascript';
+  scriptEl.src = "https://apis.google.com/js/client.js?onload=handleClientLoad";
+  bodyEl.appendChild(scriptEl);
+});
+
 /**
  * Called when the client library is loaded to start the auth flow.
  */
@@ -31,7 +40,6 @@ function loadClient(callback) {
  * @param {Object} authResult Authorization result.
  */
 function handleAuthResult(authResult) {
-
   if (authResult && !authResult.error) {
     // Access token has been successfully retrieved, requests can be sent to the API.
     alert("We have your drive, thx.");
@@ -53,6 +61,7 @@ function handleAuthResult(authResult) {
 
   } else {
     // No access token could be retrieved, show the button to start the authorization flow.
+    alert('please connect to drive...');
     gapi.auth.authorize(
       {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false},
       handleAuthResult);
