@@ -23,7 +23,15 @@ button {
 	height: 28px;
 	border: 1px solid #999;
 	border-radius: 5px;
-	background: none;
+	background-color: #DDD;
+
+	-webkit-transition: background-color 0.2s ease-out;
+  -moz-transition: background-color 0.2s ease-out;
+  -o-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+}
+button:hover {
+	background-color: #EEE;
 }
 
 .logo { color: black; font-family: "Josefin Sans"; font-weight: lighter; }
@@ -54,9 +62,5 @@ main { width: 600px; padding-top: 40px; margin: 0 auto; }
 	float: left;
 	background: transparent url(../resources/magnifying-glass.png) no-repeat scroll 5px center;
 }
-.upload {
-	background: url(../resources/up-arrow.png) no-repeat scroll center center;
-}
-.folder {
-	background: url(../resources/add.png) no-repeat scroll center center;
-}
+.upload { background: #DDD url(../resources/up-arrow.png) no-repeat scroll center center; }
+.folder { background: #DDD url(../resources/add.png) no-repeat scroll center center; }
