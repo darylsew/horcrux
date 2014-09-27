@@ -18,7 +18,6 @@ require('./config/passport')(passport);
 
 app.use(express.static(__dirname + '/views'));
 
-/*app.set('views', __dirname + '/views');*/
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 app.set('view options', {layout: false});
