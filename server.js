@@ -1,9 +1,18 @@
 var express = require('express'),
     app = express(),
-    jade = require('jade');
+    jade = require('jade'),
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    session = require('express-session'),
+    LocalStrat = require('passport-local').Strategy;
 
 var auth = require('./auth');
 var web = require('./multicaster');
+var configDB = require('./config/database.js');
+
+mongoose.connect(configDB.url);
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
