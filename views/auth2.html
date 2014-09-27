@@ -11,14 +11,32 @@
       var a = $.get("https://www.dropbox.com/1/oauth2/authorize", {response_type: "code", client_id: "76znvyd4xnr6rlq"});
       console.log(a);
     });*/
-    var client = new Dropbox.Client({ key: '76znvyd4xnr6rlq' });
-    client.authenticate(function () {
-        client.writeFile('hello.txt', 'Hello, World!', function () {
-            alert('File written!');
+    $(document).ready(function() {
+      var client = new Dropbox.Client({ key: '76znvyd4xnr6rlq' });
+      var hwButt = $("#hwButt")[0];
+      var dlButt = $("#dlButt")[0];
+      hwButt.addEventListener("click", function() {
+        client.authenticate(function () {
+          client.writeFile('hello.txt', 'Hello, World!', function () {
+              alert('File written!');
+          });
         });
+      });
+      dlButt.addEventListener("click", function() {
+        client.authenticate(function () {
+          client.readFile("hello.txt", function(error, data) {
+            if (error) {
+              return showError(error);  // Something went wrong.
+            }
+            alert(data);  // data has the file's contents
+          });    
+        });
+      });
     });
   </script>
 </head>
 <body>
+  <input type="button" id="hwButt" value="Hello Fucking World" />
+  <input type="button" id="dlButt" value="Downfuckingload" />
 </body>
 </html>
