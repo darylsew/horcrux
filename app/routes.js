@@ -11,10 +11,14 @@ module.exports = function(app,passport){
     res.render('auth');
   });
 
-  app.post('/login',
+  app.get('/login', function(req,res){
+    res.render('login');
+  });
+
+  app.post('/user_auth',
       passport.authenticate('local',
         { successRedirect : '/',
-          failureRedirect : '/login_page'})
+          failureRedirect : '/login'})
       );
 
   app.post('/signup', passport.authenticate('local-signup',{
@@ -47,5 +51,5 @@ module.exports = function(app,passport){
 
 function isLoggedIn(req,res,next){
   if (req.isAuthenticated()) return next();
-  res.redirect('/login');
+  res.redirect('/login_page');
 }
