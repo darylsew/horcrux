@@ -14,8 +14,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="new-folder.svg"
-   inkscape:export-filename="/Users/zachary/horcrux/graphics/up-arrow.png"
+   sodipodi:docname="add.svg"
+   inkscape:export-filename="/Users/zachary/horcrux/graphics/add.png"
    inkscape:export-xdpi="16.64151"
    inkscape:export-ydpi="16.64151">
   <defs
@@ -46,7 +46,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,12 +54,28 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="color:#000000;fill:#dcdcdc;fill-opacity:1;stroke:none;stroke-width:6.79199982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect2985"
-       width="187.14287"
-       height="151.42856"
-       x="278.4758"
-       y="450.4668" />
+    <g
+       id="g2999">
+      <rect
+         y="450.4668"
+         x="278.4758"
+         height="151.42856"
+         width="187.14287"
+         id="rect2985"
+         style="color:#000000;fill:#dcdcdc;fill-opacity:1;stroke:none;stroke-width:6.79199982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <g
+         id="g2995">
+        <path
+           style="color:#000000;fill:#888888;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.79199982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+           d="m 368.1265,490.44609 7.84148,0 0,71.47001 -7.84148,0 z"
+           id="rect2991"
+           inkscape:connector-curvature="0" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path2993"
+           d="m 407.78224,522.26036 0,7.84149 -71.47001,0 0,-7.84149 z"
+           style="color:#000000;fill:#888888;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.79199982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      </g>
+    </g>
   </g>
 </svg>
