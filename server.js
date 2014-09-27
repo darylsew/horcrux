@@ -33,3 +33,5 @@ app.get('/move', function(req,res){
 });
 
 app.listen(3000);
+
+auth.requestGoogleAuth();
