@@ -35,5 +35,5 @@ app.get('/move', function(req,res){
 
 app.listen(3000);
 
-auth.requestGoogleAuth();
-web.get('http://www.google.com/index.html');
+//auth.requestGoogleAuth();
+//web.get('http://www.google.com/index.html');
