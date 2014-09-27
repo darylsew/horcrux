@@ -3,7 +3,8 @@ module.exports = function(app,passport){
   app.get('/', isLoggedIn, function(req,res){
     res.render('horcrux', {
       title: "Home",
-    user: req.user
+      user: req.user,
+      files: User.findOne({"email" : req.user})
     });
   });
 
@@ -21,7 +22,7 @@ module.exports = function(app,passport){
   });
 
   app.post('/user_auth',
-      passport.authenticate('local',
+      passport.authenticate('local-login',
         { successRedirect : '/',
           failureRedirect : '/login'})
       );
