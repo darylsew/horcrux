@@ -31,20 +31,32 @@ function loadClient(callback) {
  * @param {Object} authResult Authorization result.
  */
 function handleAuthResult(authResult) {
-  // GET THE DRIVE STUFF
-  loadClient(function() {
-    console.log('drive');
-    // TRYING TO MAKE REQUESTS
-    gapi.client.request({
-      'path': '/drive/v2/files',
-      'method': 'GET'//,
-      //'params': {'uploadType': 'multipart'}//,
-      //'headers': { 'Content-Type': 'multipart/mixed; boundary="' + boundary + '"' },
-      //'body': multipartRequestBody
-    }).execute(function(x){
-      console.log(x);
+
+  if (authResult && !authResult.error) {
+    // Access token has been successfully retrieved, requests can be sent to the API.
+    alert("We have your drive, thx.");
+
+    // GET THE DRIVE STUFF
+    loadClient(function() {
+      console.log('drive');
+      // TRYING TO MAKE REQUESTS
+      gapi.client.request({
+        'path': '/drive/v2/files',
+        'method': 'GET'//,
+        //'params': {'uploadType': 'multipart'},
+        //'headers': { 'Content-Type': 'multipart/mixed; boundary="' + boundary + '"' },
+        //'body': multipartRequestBody
+      }).execute(function(x){
+        console.log(x);
+      });
     });
-  });
+
+  } else {
+    // No access token could be retrieved, show the button to start the authorization flow.
+    gapi.auth.authorize(
+      {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false},
+      handleAuthResult);
+  }
 }
 
 /**
