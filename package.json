@@ -17,6 +17,7 @@
     "body-parser" : "*",
     "express-session" : "*",
     "bcrypt-nodejs" : "*",
-    "request" : "*"
+    "request" : "*",
+    "dropbox" : "*"
   }
 }

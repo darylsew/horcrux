@@ -4,15 +4,21 @@
   <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/jquery.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.10.2/dropbox.min.js"></script>
+  <script>
+/*    $(document).ready(function(){
+      var a = $.get("https://www.dropbox.com/1/oauth2/authorize", {response_type: "code", client_id: "76znvyd4xnr6rlq"});
+      console.log(a);
+    });*/
+    var client = new Dropbox.Client({ key: '76znvyd4xnr6rlq' });
+    client.authenticate(function () {
+        client.writeFile('hello.txt', 'Hello, World!', function () {
+            alert('File written!');
+        });
+    });
+  </script>
 </head>
 <body>
-  <script type="text/javascript">
-    var request = require('request');
-    request('http://www.google.com', function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log(body) // Print the google web page.
-      }
-    })
-  </script>
 </body>
 </html>

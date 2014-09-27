@@ -7,7 +7,8 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
-    LocalStrat = require('passport-local').Strategy;
+    LocalStrat = require('passport-local').Strategy,
+    dropbox = require('dropbox');
 
 var auth = require('./auth');
 var web = require('./multicaster');
