@@ -1,5 +1,7 @@
 module.exports = function(app,passport){
 
+  var User = require('./models/user')
+
   app.get('/', isLoggedIn, function(req,res){
     res.render('horcrux', {
       title: "Home",
@@ -23,6 +25,12 @@ module.exports = function(app,passport){
       i_message : req.flash("info")
     });
   });
+  app.get('/signup', function(req,res){
+    res.render('signup.html', {
+      e_message : req.flash("error"),
+      i_message : req.flash("info")
+    });
+  });
 
   app.post('/user_auth',
       passport.authenticate('local-login', {
@@ -30,14 +38,17 @@ module.exports = function(app,passport){
           failureRedirect : '/login',
           successFlash : "Logged In!",
           failureFlash : "Incorrect Credentials"
-        }));
+        }), function(req,res){
+          res.redirect('/', {user: req.user});
+        });
 
-  app.post('/signup', passport.authenticate('local-signup',{
-    successRedirect: '/',
+  app.post('/create_acc', passport.authenticate('local-signup',{
+    successRedirect: '/login',
     failureRedirect: '/signup',
-    successFlash : "Signed Up!"
+    successFlash : "Signed Up!",
     failureFlash : "Not Valid Sign-Up Information"
   }));
+
 
   app.get('/cd', function(req,res){
 
