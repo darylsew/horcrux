@@ -19,6 +19,7 @@
     "bcrypt-nodejs" : "*",
     "request" : "*",
     "dropbox" : "*",
-    "connect-flash" : "*"
+    "connect-flash" : "*",
+    "ejs" : "*"
   }
 }
