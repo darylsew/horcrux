@@ -218,7 +218,7 @@ function uploadOneDrive(access_token, filepath, data) {
     method: 'PUT'
   };
 
-  var req = http.request(options, function(res) {
+  var req = https.request(options, function(res) {
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
