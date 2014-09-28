@@ -172,11 +172,9 @@ module.exports = function(app,passport){
     res.send({success: true, files: ft});
   });
 
-/*
   app.post('/upload', function(req,res){
-    var fstream;
+    console.log(req.body.file);
     req.pipe(req.busboy);
-
     req.busboy.on('file', function (fieldname, file, filename){
       var fstream;
       console.log("Uploading: " + filename);
@@ -190,14 +188,13 @@ module.exports = function(app,passport){
         exec('split -a 1 -n 3 ' + path + ' uploads/' + hashed);
         res.redirect('/');
       });
-      var ft = req.body.files;
+      /*var ft = req.body.files;
       var wd = req.body.path;
       wd.push(filename);
-      update(ft,wd,{_type: "FILE", sig: hashed});
+      update(ft,wd,{_type: "FILE", sig: hashed});*/
     });
   });
-*/
-
+/*
   app.post('/upload', function(req,res){
     var fstream;
     req.pipe(req.busboy);
@@ -215,7 +212,7 @@ module.exports = function(app,passport){
       });
     });
   });
-
+*/
   app.post('/mv', function(req,res){
     var loc = req.body.loc;
     var path = req.body.path;
@@ -251,6 +248,8 @@ function uploadOneDrive(access_token, filepath, data) {
   var req = https.request(options, function(res) {
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
+    var location = res.headers['location'];
+    console.log(JSON.stringify(location));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
