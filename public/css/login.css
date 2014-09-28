@@ -1,4 +1,8 @@
 form { width: 270px; margin: 0 auto; }
 label { font-size: 24px; display: block; margin-bottom: 12px; }
 input { margin: 5px 0; }
-.submit { width: 70px; float: right; }
+.message { color: #ba2bcf; }
+.submit { width: 70px; }
+
+input[name=signup] { float: left; }
+input[name=login] { float: right; }

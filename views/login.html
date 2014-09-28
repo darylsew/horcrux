@@ -6,24 +6,24 @@
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   <link rel="stylesheet" type="text/css" href="css/login.css"/>
   <script src="js/jquery.js"></script>
-  <script src="js/login.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/login.js"></script>
 </head>
 <body>
   <header>
     <h1 class="logo">horcru<span>x</span></h1>
     <nav>
       <a href="/login">Log in</a>
-      <a href="/signup">Sign up</a>
     </nav>
   </header>
   <main>
     <form action="/user_auth" method="post">
       <label>Log In</label>
-      <p style="color: red">{{message}}</p>
+      <p class="message">{{message}}</p>
       <input required name="email" type="email" placeholder="email"/>
       <input required name="password" type="password" placeholder="password"/>
-      <input class="submit" type="submit" value="Submit"/>
+      <input class="submit" type="submit" name="signup" value="Sign Up"/>
+      <input class="submit" type="submit" name="login"  value="Log In"/>
     </form>
   </main>
 </body>
