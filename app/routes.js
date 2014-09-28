@@ -64,7 +64,7 @@ module.exports = function(app,passport){
       }).on('error', function(e) {console.error(e);});
       apireq.end();
 
-      console.log(downloadOneDrive(req.session.onedrive, 'helloworld.txt'));
+      downloadOneDrive(req.session.onedrive, 'helloworld.txt');
 
       // TODO do the next thing
       res.render('dropbox.html');
@@ -249,17 +249,18 @@ function uploadOneDrive(access_token, filepath, data) {
 function downloadOneDrive(access_token, filepath) {
   var https = require('https');
   //GET https://apis.live.net/v5.0/file.a6b2a7e8f2515e5e.A6B2A7E8F2515E5E!126/content?access_token=ACCESS_TOKEN
+  var options = {
+    host: 'apis.live.net',
+    path: '/v5.0/' + filepath + '/content?access_token=' + access_token,
+    method: 'GET'
+  };
 
-  var urlstring = 'https://apis.live.net/v5.0/';
-  urlstring += filepath + '/content?access_token=' + access_token;
-
-  https.get(urlstring, function(res) {
+  https.get(options, function(res) {
     console.log("statusCode: ", res.statusCode);
     console.log("headers: ", res.headers);
     res.on('data', function(d) {
-      return d;
+      process.stdout.write(d);
     });
-
   }).on('error', function(e) {
     console.error(e);
   });
