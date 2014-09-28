@@ -39,6 +39,7 @@ module.exports = function(app,passport){
           req.session.onedrivefreespace = res.space_amount;
       });
       apireq.end();      
+
       res.render('login.html');
     } else {
       res.render('box.html');
@@ -50,34 +51,25 @@ module.exports = function(app,passport){
   });
 
   app.get('/onedrive', function(req,res){
-    //http://cafedaydream.com/onedrive?code=65eb3a0f-3f55-3973-18f9-11cb7d821a9c
     var queryData = url.parse(req.url, true).query;
-    console.log("url: " + req.url);
     if (queryData.access_token) {
-      console.log(queryData);
       req.session.onedrive = queryData.access_token;
-      console.log("Got token from onedrive: " + req.session.onedrive);
       var options = {
         host: 'apis.live.net',
         path: '/v5.0/me/skydrive/quota?access_token=' + req.session.onedrive,
         method: 'GET'
       };
-
       var apireq = https.request(options, function(res) {
-        console.log("statusCode: ", res.statusCode);
-        console.log("headers: ", res.headers);
-        res.on('data', function(d) {
-          console.log(JSON.stringify(d));
-        });
-      }).on('error', function(e) {
-        console.error(e);
-      });
-      //req.session.onedrivefreespace = res.available;
+        res.on('data', function(d) {req.session.onedrivefreespace = JSON.parse(d.toString()).available;});
+      }).on('error', function(e) {console.error(e);});
       apireq.end();
 
+      uploadOneDrive(req.session.onedrive, 'helloworld.txt', 'helloworld');
+
+      // TODO do the next thing
       res.render('dropbox.html');
     } else {
-      if (!req.session.onedrived) {
+      if (!req.session.onedrived) { // hackity hack
         res.render('onedrive.html');
         req.session.onedrived = true;
       }
@@ -236,4 +228,31 @@ module.exports = function(app,passport){
 function isLoggedIn(req,res,next){
   if (req.isAuthenticated()) return next();
   res.redirect('/login');
+}
+
+function uploadOneDrive(access_token, filepath, data) {
+  var https = require('https');
+  //PUT https://apis.live.net/v5.0/me/skydrive/files/
+  var options = {
+    host: 'apis.live.net',
+    path: '/v5.0/me/skydrive/files/' + filepath + '?access_token=' + access_token,
+    method: 'PUT'
+  };
+
+  var req = https.request(options, function(res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+      console.log('BODY: ' + chunk);
+    });
+  });
+
+  req.on('error', function(e) {
+    console.log('problem with request: ' + e.message);
+  });
+
+  // write data to request body
+  req.write(data);
+  req.end();
 }
