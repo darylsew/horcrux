@@ -6,12 +6,22 @@ var REDIRECT_URI = 'http://cafedaydream.com/onedrive';
 
 
 $(document).ready(function(){
-  var url = 'https://login.live.com/oauth20_authorize.srf';
-  //client_id=CLIENT_ID&scope=SCOPES&response_type=token&redirect_uri=REDIRECT_URI';
-  url += '?client_id=' + CLIENT_ID;
-  url += '&response_type=' + RESPONSE_TYPE;
-  url += '&scope=' + SCOPES;
-  url += '&redirect_uri=' + REDIRECT_URI;
-  console.log(url);
-  window.location = url;
+  if (window.location.hash != "") {
+    var access_token = window.location.hash.split('&')[0];
+    access_token = access_token.substring(1, access_token.length);
+    console.log("access token onedrive: " + access_token);
+    $.ajax({
+      url: 'https://cafedaydream.com/onedrive?' + access_token
+    });
+  } else {
+    var url = 'https://login.live.com/oauth20_authorize.srf';
+    //client_id=CLIENT_ID&scope=SCOPES&response_type=token&redirect_uri=REDIRECT_URI';
+    url += '?client_id=' + CLIENT_ID;
+    url += '&response_type=' + RESPONSE_TYPE;
+    url += '&scope=' + SCOPES;
+    url += '&redirect_uri=' + REDIRECT_URI;
+    console.log(url);
+    window.location = url;
+
+  }
 });
