@@ -64,7 +64,7 @@ module.exports = function(app,passport){
       }).on('error', function(e) {console.error(e);});
       apireq.end();
 
-      uploadOneDrive(req.session.onedrive, 'helloworld.txt', 'helloworld');
+      console.log(downloadOneDrive(req.session.onedrive, 'helloworld.txt'));
 
       // TODO do the next thing
       res.render('dropbox.html');
@@ -154,43 +154,30 @@ module.exports = function(app,passport){
   }
 
   app.post('/mkdir', function(req,res){
-    var wd = req.query.path;
-    var ft = update(req.query.files, wd, {_type: "FOLDER"});
-    User.findOne({email: req.query.user}, function (err,doc){
+    var wd = req.body.path;
+    var ft = update(req.body.files, wd, {_type: "FOLDER"});
+    User.findOne({email: req.body.user}, function (err,doc){
       doc.files = ft;
       doc.save();
     });
+    res.send({success: true, files: ft});
   });
 
   app.post('/rm', function(req,res){
-    var ft = remove(req.query.files, req.query.path);
-    User.findOne({email: req.query.user}, function (err,doc){
+    var ft = remove(req.body.files, req.body.path);
+    User.findOne({email: req.body.user}, function (err,doc){
       doc.files = ft;
       doc.save;
     });
+    res.send({success: true, files: ft});
   });
 
   app.post('/upload', function(req,res){
-    //console.log(req.socket._events);
-
-    //console.log(req.socket._events.finish);
-
-    res.on('data', function (chunk) {
-      console.log('BODY: ' + chunk);
-    });
-
-    /*
     var fstream;
     req.pipe(req.busboy);
-    req.busboy.on('finish', 
-      function () {
-        console.log('inside yo momma');
-        console.log(req.body);
-      }
-      */
-/*
 
-    function (fieldname, file, filename){
+    req.busboy.on('file', function (fieldname, file, filename){
+      var fstream;
       console.log("Uploading: " + filename);
       var path = __dirname+'/../uploads/'+filename;
       var shasum = crypto.createHash('sha1');
@@ -202,25 +189,27 @@ module.exports = function(app,passport){
         exec('split -a 1 -n 3 ' + path + ' uploads/' + hashed);
         res.redirect('/');
       });
-    }*/
-
-
-    //);
+      var ft = req.body.files;
+      var wd = req.body.path;
+      wd.push(filename);
+      update(ft,wd,{_type: "FILE", sig: hashed});
+    });
   });
 
-  app.post('/move', function(req,res){
-    var loc = req.query.loc;
-    var path = req.query.path;
+  app.post('/mv', function(req,res){
+    var loc = req.body.loc;
+    var path = req.body.path;
     var name = path[path.length - 1];
     loc.push(name);
-    var ft = req.query.files;
+    var ft = req.body.files;
     var payload = path.reduce(function(obj,i){return obj[i]}, ft);
     remove(ft,path);
     update(ft,loc,payload);
-    User.findOne({email: req.query.user}, function (err,doc){
+    User.findOne({email: req.body.user}, function (err,doc){
       doc.files = ft;
       doc.save;
     });
+    res.send({success: true, files: ft});
   });
 
 };
@@ -255,4 +244,23 @@ function uploadOneDrive(access_token, filepath, data) {
   // write data to request body
   req.write(data);
   req.end();
+}
+
+function downloadOneDrive(access_token, filepath) {
+  var https = require('https');
+  //GET https://apis.live.net/v5.0/file.a6b2a7e8f2515e5e.A6B2A7E8F2515E5E!126/content?access_token=ACCESS_TOKEN
+
+  var urlstring = 'https://apis.live.net/v5.0/';
+  urlstring += filepath + '/content?access_token=' + access_token;
+
+  https.get(urlstring, function(res) {
+    console.log("statusCode: ", res.statusCode);
+    console.log("headers: ", res.headers);
+    res.on('data', function(d) {
+      return d;
+    });
+
+  }).on('error', function(e) {
+    console.error(e);
+  });
 }
