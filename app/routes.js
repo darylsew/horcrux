@@ -64,7 +64,7 @@ module.exports = function(app,passport){
       }).on('error', function(e) {console.error(e);});
       apireq.end();
 
-      downloadOneDrive(req.session.onedrive, 'helloworld.txt');
+      uploadOneDrive(req.session.onedrive, 'helloworld.txt', 'helloworld');
 
       // TODO do the next thing
       res.render('dropbox.html');
