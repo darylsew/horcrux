@@ -64,28 +64,23 @@ module.exports = function(app,passport){
     failureFlash : "Not Valid Sign-Up Information"
   }));*/
 
-
-  app.get('/cd', function(req,res){
-
-  });
-
   app.get('/browse', function(req,res){
     res.render("browse.html");
   });
 
-  app.get('/mkdir', function(req,res){
+  app.post('/mkdir', function(req,res){
 
   });
 
-  app.get('/rm', function(req,res){
+  app.post('/rm', function(req,res){
 
   });
 
-  app.get('/upload', function(req,res){
+  app.post('/upload', function(req,res){
 
   });
 
-  app.get('/move', function(req,res){
+  app.post('/move', function(req,res){
 
   });
 
