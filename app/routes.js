@@ -211,6 +211,7 @@ function isLoggedIn(req,res,next){
 }
 
 function uploadOneDrive(access_token, filepath, data) {
+  var https = require('https');
   //PUT https://apis.live.net/v5.0/me/skydrive/files/
   var options = {
     host: 'apis.live.net',
