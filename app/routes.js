@@ -9,22 +9,26 @@ module.exports = function(app,passport){
     });
   });
 
-  app.get('/auth', function(req,res){
-    res.render('auth.html');
+  app.get('/drive', function(req,res){
+    res.render('drive.html');
   });
 
-  app.get('/auth2', function(req,res){
-    res.render('auth2.html');
+  app.get('/box', function(req,res){
+    res.render('box.html');
+  });
+
+  app.get('/dropbox', function(req,res){
+    res.render('dropbox.html');
+  });
+
+  app.get('/onedrive', function(req,res){
+    res.render('onedrive.html');
   });
 
   app.get('/login', function(req,res){
     res.render('login.html', {
       message : req.flash("error"),
     });
-  });
-
-  app.get('/onedrive', function(req,res){
-    res.render('onedrive.html');
   });
 
   app.get('/logout', function(req,res){
