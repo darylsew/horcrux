@@ -250,7 +250,7 @@ function downloadOneDrive(access_token, filepath) {
   var https = require('https');
   //GET https://apis.live.net/v5.0/file.a6b2a7e8f2515e5e.A6B2A7E8F2515E5E!126/content?access_token=ACCESS_TOKEN
 
-  var urlstring = 'https://apis.live.net/v5.0/me/skydrive/files/';
+  var urlstring = 'apis.live.net/v5.0/me/skydrive/files/';
   urlstring += filepath + '/content?access_token=' + access_token;
 
   https.get(urlstring, function(res) {
