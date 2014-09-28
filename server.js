@@ -34,7 +34,7 @@ require('./config/passport.js')(passport);
 
 require('./app/routes.js')(app,passport);
 
-app.listen(80);
+app.listen(3000);
 
 //auth.requestGoogleAuth();
 //web.get('http://www.google.com/index.html');
