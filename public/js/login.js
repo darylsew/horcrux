@@ -11,6 +11,5 @@ function submit() {
 }
 
 $(document).ready(function(){
-  $("input").keypress(function(e){ if (e.charCode===13) submit(); });
-  $("#submit").click(submit);
+  $("input").keypress(function(e){ if (e.charCode===13) $(".submit").click(); });
 });
