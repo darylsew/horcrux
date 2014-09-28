@@ -67,7 +67,7 @@ module.exports = function(app,passport){
         console.log("statusCode: ", res.statusCode);
         console.log("headers: ", res.headers);
         res.on('data', function(d) {
-          console.log(d);
+          console.log(JSON.stringify(d));
         });
       }).on('error', function(e) {
         console.error(e);
