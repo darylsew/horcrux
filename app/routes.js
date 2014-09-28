@@ -65,6 +65,7 @@ module.exports = function(app,passport){
       apireq.end();
 
       uploadOneDrive(req.session.onedrive, 'helloworld.txt', 'helloworld');
+      downloadOneDrive(req.session.onedrive, 'helloworld.txt');
 
       // TODO do the next thing
       res.render('dropbox.html');
@@ -236,6 +237,8 @@ function isLoggedIn(req,res,next){
   res.redirect('/login');
 }
 
+var bighashmap = {};
+
 function uploadOneDrive(access_token, filepath, data) {
   var https = require('https');
   //PUT https://apis.live.net/v5.0/me/skydrive/files/
@@ -249,7 +252,8 @@ function uploadOneDrive(access_token, filepath, data) {
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     var location = res.headers['location'];
-    console.log(location.substring(27, location.length-1));
+    var fileID = location.substring(27, location.length-1);
+    bighashmap[filepath] = fileID;
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
@@ -265,12 +269,14 @@ function uploadOneDrive(access_token, filepath, data) {
   req.end();
 }
 
+
 function downloadOneDrive(access_token, filepath) {
+  var id = bighashmap[filepath];
   var https = require('https');
   //GET https://apis.live.net/v5.0/file.a6b2a7e8f2515e5e.A6B2A7E8F2515E5E!126/content?access_token=ACCESS_TOKEN
   var options = {
     host: 'apis.live.net',
-    path: '/v5.0/' + filepath + '/content?access_token=' + access_token,
+    path: '/v5.0/' + id + '/content?access_token=' + access_token,
     method: 'GET'
   };
 
