@@ -19,6 +19,6 @@
     "request" : "*",
     "dropbox" : "*",
     "connect-flash" : "*",
-    "ejs" : "*"
+    "connect-busboy" : "*"
   }
 }
