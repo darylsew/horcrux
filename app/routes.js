@@ -68,8 +68,8 @@ module.exports = function(app,passport){
         console.log("headers: ", res.headers);
         res.on('data', function(d) {
           //console.log(JSON.stringify(d));
-          console.log(JSON.parse(d.toString()));
-          req.session.onedrivefreespace = JSON.parse(d.toString());
+          console.log(JSON.parse(d.toString()).available);
+          req.session.onedrivefreespace = JSON.parse(d.toString()).available;
         });
       }).on('error', function(e) {
         console.error(e);
