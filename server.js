@@ -1,7 +1,6 @@
 var express = require('express'),
     app = express(),
-    mustache = require('mustache'),
-    mustacheExpress = require('mustache-express'),
+    ejs = require('ejs'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     cookieParser = require('cookie-parser'),
@@ -17,7 +16,7 @@ var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 
 app.use(express.static(__dirname+'/public'))
-app.engine('html', mustacheExpress());
+app.engine('html', ejs.__express);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 app.set('view options', {layout: false});

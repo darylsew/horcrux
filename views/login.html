@@ -19,7 +19,7 @@
   <main>
     <form action="/user_auth" method="post">
       <label>Log In</label>
-      <p class="message">{{message}}</p>
+      <p class="message"><%= message %></p>
       <input required name="email" type="email" placeholder="email"/>
       <input required name="password" type="password" placeholder="password"/>
       <input class="submit" type="submit" name="login"  value="Log In"/>
