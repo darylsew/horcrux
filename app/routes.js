@@ -58,7 +58,7 @@ module.exports = function(app,passport){
       req.session.onedrive = queryData.access_token;
       console.log("Got token from onedrive: " + req.session.onedrive);
       var options = {
-        hostname: 'https://apis.live.net',
+        host: 'apis.live.net',
         path: '/v5.0/me/skydrive/quota?access_token=' + req.session.onedrive,
         method: 'GET'
       };
