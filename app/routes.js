@@ -67,7 +67,8 @@ module.exports = function(app,passport){
         console.log("statusCode: ", res.statusCode);
         console.log("headers: ", res.headers);
         res.on('data', function(d) {
-          console.log(JSON.stringify(d));
+          //console.log(JSON.stringify(d));
+          req.session.onedrivefreespace = JSON.parse(d.toString());
         });
       }).on('error', function(e) {
         console.error(e);
