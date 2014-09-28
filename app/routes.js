@@ -64,10 +64,16 @@ module.exports = function(app,passport){
       };
 
       var apireq = https.request(options, function(res) {
-          console.log("onedrive response: " + res.keys());
-          req.session.onedrivefreespace = res.available;
+        console.log("statusCode: ", res.statusCode);
+        console.log("headers: ", res.headers);
+        res.on('data', function(d) {
+          console.log(d);
+        });
+      }).on('error', function(e) {
+        console.error(e);
       });
-      apireq.end();
+      //req.session.onedrivefreespace = res.available;
+      //apireq.end();
 
       res.render('dropbox.html');
     } else {
