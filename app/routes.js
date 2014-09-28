@@ -179,9 +179,26 @@ module.exports = function(app,passport){
   });
 
   app.post('/upload', function(req,res){
+    //console.log(req.socket._events);
+
+    //console.log(req.socket._events.finish);
+
+    res.on('data', function (chunk) {
+      console.log('BODY: ' + chunk);
+    });
+
+    /*
     var fstream;
     req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename){
+    req.busboy.on('finish', 
+      function () {
+        console.log('inside yo momma');
+        console.log(req.body);
+      }
+      */
+/*
+
+    function (fieldname, file, filename){
       console.log("Uploading: " + filename);
       var path = __dirname+'/../uploads/'+filename;
       var shasum = crypto.createHash('sha1');
@@ -193,7 +210,10 @@ module.exports = function(app,passport){
         exec('split -a 1 -n 3 ' + path + ' uploads/' + hashed);
         res.redirect('/');
       });
-    });
+    }*/
+
+
+    //);
   });
 
   app.post('/move', function(req,res){

@@ -45,7 +45,7 @@ function handleAuthResult(authResult) {
 
     // GET THE DRIVE STUFF
     loadClient(function() {
-      alert("We have your drive, thx.");
+      //alert("We have your drive, thx.");
       // TODO logics
       // TRYING TO MAKE REQUESTS
       gapi.client.request({
