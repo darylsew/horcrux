@@ -7,6 +7,7 @@ module.exports = {
   get: function(url) {
     http.get(url, function(res) {
       console.log("Got response: " + res.statusCode);
+      return res;
     }).on('error', function(e) {
       console.log("Got error: " + e.message);
     });

@@ -2,7 +2,7 @@ module.exports = function(app,passport){
 
   var User = require('./models/user')
   var url = require('url');
-  var apitokens = {};
+  var https = require('https');
 
   app.get('/', isLoggedIn, function(req,res){
     res.render('browse', {
@@ -20,9 +20,20 @@ module.exports = function(app,passport){
     if (queryData.code) {
       req.session.box = queryData.code;
       console.log("Got token from box: " + req.session.box);
-      // TODO request datas here right away
+      // get free space, get whether there is a tree structure
+      var options = {
+        hostname: 'https://api.box.com/2.0/users/me',
+        port: 80,
+        path: '/',
+        method: 'GET',
+        headers: {"Authorization": "Bearer " + req.session.box}
+      };
 
-      // TODO interface, where to redirect to? the next auth thing?
+      var apireq = https.request(options, function(res) {
+          console.log("box response: " + res.space_amount);
+          req.session.onedrivefreespace = res.space_amount;
+      });
+      apireq.end();      
       res.render('login.html');
     } else {
       res.render('box.html');
@@ -38,10 +49,20 @@ module.exports = function(app,passport){
     var queryData = url.parse(req.url, true).query;
     if (queryData.code) {
       req.session.onedrive = queryData.code;
-      console.log("Got token from onedrive: " + req.seession.onedrive);
-      // TODO request datas here right away
+      console.log("Got token from onedrive: " + req.session.onedrive);
+      var options = {
+        hostname: 'https://apis.live.net/v5.0/me/skydrive/quota?access_token=' + req.session.onedrive,
+        port: 80,
+        path: '/',
+        method: 'GET'
+      };
 
-      // TODO interface, where to redirect to?
+      var apireq = https.request(options, function(res) {
+          console.log("onedrive response: " + res);
+          req.session.onedrivefreespace = res.available;
+      });
+      apireq.end();
+
       res.render('login.html');
     } else {
       res.render('onedrive.html');
