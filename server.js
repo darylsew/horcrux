@@ -17,7 +17,6 @@ var configDB = require('./config/database.js');
 
 mongoose.connect(configDB.url);
 
-
 app.use(express.static(__dirname+'/public'))
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
@@ -27,7 +26,9 @@ app.set('view options', {layout: false});
 app.use(cookieParser());
 app.use(bodyParser());
 
-app.use(session({ secret: 'darudeandthesandstorms' })); 
+app.use(session({
+  secret: 'darudeandthesandstorms',
+  apitokens: {}})); 
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.use(flash());

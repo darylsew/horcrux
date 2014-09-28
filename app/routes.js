@@ -1,6 +1,8 @@
 module.exports = function(app,passport){
 
   var User = require('./models/user')
+  var url = require('url');
+  var apitokens = {};
 
   app.get('/', isLoggedIn, function(req,res){
     res.render('browse', {
@@ -14,7 +16,17 @@ module.exports = function(app,passport){
   });
 
   app.get('/box', function(req,res){
-    res.render('box.html');
+    var queryData = url.parse(req.url, true).query;
+    if (queryData.code) {
+      req.session.apitokens['box'] = queryData.code;
+      console.log("Got token from box: " + queryData.code);
+      // TODO request datas here right away
+
+      // TODO interface, where to redirect to? the next auth thing?
+      res.render('login.html');
+    } else {
+      res.render('box.html');
+    }
   });
 
   app.get('/dropbox', function(req,res){
@@ -22,7 +34,18 @@ module.exports = function(app,passport){
   });
 
   app.get('/onedrive', function(req,res){
-    res.render('onedrive.html');
+    //http://cafedaydream.com/onedrive?code=65eb3a0f-3f55-3973-18f9-11cb7d821a9c
+    var queryData = url.parse(req.url, true).query;
+    if (queryData.code) {
+      req.session.apitokens['onedrive'] = queryData.code;
+      console.log("Got token from box: " + queryData.code);
+      // TODO request datas here right away
+
+      // TODO interface, where to redirect to?
+      res.render('login.html');
+    } else {
+      res.render('onedrive.html');
+    }
   });
 
   app.get('/login', function(req,res){
@@ -40,8 +63,6 @@ module.exports = function(app,passport){
       message : req.flash("error"),
     });
   });*/
-
-  app.get('/box', function(req,res){ res.render('box');});
 
   app.post('/user_auth', function(req,res) {
     console.log("login: " + req.body.login);
