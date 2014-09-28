@@ -46,11 +46,8 @@ module.exports = function(app,passport){
 
   app.get('/onedrive', function(req,res){
     //http://cafedaydream.com/onedrive?code=65eb3a0f-3f55-3973-18f9-11cb7d821a9c
-    console.log(req.url);
-    console.log(url.parse(req.url, true));
     var queryData = url.parse(req.url, true).hash;
-    console.log(queryData);
-    if (queryData.access_token) {
+    if (queryData) {
       req.session.onedrive = queryData.access_token;
       console.log("Got token from onedrive: " + req.session.onedrive);
       var options = {
