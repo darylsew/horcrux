@@ -47,8 +47,8 @@ module.exports = function(app,passport){
   app.get('/onedrive', function(req,res){
     //http://cafedaydream.com/onedrive?code=65eb3a0f-3f55-3973-18f9-11cb7d821a9c
     var queryData = url.parse(req.url, true).query;
-    if (queryData.code) {
-      req.session.onedrive = queryData.code;
+    if (queryData.access_token) {
+      req.session.onedrive = queryData.access_token;
       console.log("Got token from onedrive: " + req.session.onedrive);
       var options = {
         hostname: 'https://apis.live.net/v5.0/me/skydrive/quota?access_token=' + req.session.onedrive,
