@@ -20,7 +20,7 @@ module.exports = function(app,passport){
   });
 
   app.get('/login', function(req,res){
-    res.render('signup.html', {
+    res.render('login.html', {
       message : req.flash("error"),
     });
   });
