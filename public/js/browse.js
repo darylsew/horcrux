@@ -1,7 +1,14 @@
 $(document).ready(function(){
+  $("button.upload").click(function(){
+    $(this).blur();
+    $(".uploadform > input[type=file]").click().change(function(e){
+      uploadFile(e, function(file){
+        $("table").append('<tr><td>'+file.originalFilename+'</td><td><a href="'+file.webContentLink+'">download</a></td></tr>');
+      });
+    });
+  });
 
-  console.log(username);
-
+/*
   $("button.upload").click(function(){
     $(this).blur();
     $(".uploadform > input[type=file]").click().change(function(){
@@ -18,6 +25,8 @@ $(document).ready(function(){
         formData.append(i, file, file.name);
       }
 
+      //formData.path = [];
+
       // send file to be uploaded
       $.ajax({
         url: '/upload',
@@ -27,18 +36,6 @@ $(document).ready(function(){
       });
 
     });
-  });
-
-/*
-  $.ajax({
-    url: '/upload',
-    type: 'POST',
-    data: {
-      thing: "thang"
-    }//,
-    //cache: false,
-    //contentType: false,
-    //processData: false
   });
 */
 

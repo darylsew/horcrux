@@ -73,11 +73,10 @@ function handleAuthResult(authResult) {
  *
  * @param {Object} evt Arguments from the file selector.
  */
-function uploadFile(evt) {
-  alert('uploaded');
+function uploadFile(evt, f) {
   gapi.client.load('drive', 'v2', function() {
     var file = evt.target.files[0];
-    insertFile(file);
+    insertFile(file, f);
   });
 }
 

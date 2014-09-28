@@ -175,7 +175,7 @@ module.exports = function(app,passport){
     });
     res.send({success: true, files: ft});
   });
-
+/*
   app.post('/upload', function(req,res){
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename){
@@ -191,14 +191,17 @@ module.exports = function(app,passport){
         exec('split -a 1 -n 3 ' + path + ' uploads/' + hashed);
         res.redirect('/');
       });
-      /*var ft = req.body.files;
+      var ft = req.body.files;
       var wd = req.body.path;
+      console.log(wd);
       wd.push(filename);
-      update(ft,wd,{_type: "FILE", sig: hashed});*/
+      update(ft,wd,{_type: "FILE", sig: hashed});
     });
   });
-/*
+*/
+
   app.post('/upload', function(req,res){
+    console.log(req.body);
     var fstream;
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename){
@@ -215,7 +218,7 @@ module.exports = function(app,passport){
       });
     });
   });
-*/
+
   app.post('/mv', function(req,res){
     var loc = req.body.loc;
     var path = req.body.path;
