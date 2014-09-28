@@ -8,7 +8,8 @@ var express = require('express'),
     session = require('express-session'),
     LocalStrat = require('passport-local').Strategy,
     dropbox = require('dropbox'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    busboy = require('connect-busboy');
 
 var web = require('./multicaster');
 var configDB = require('./config/database.js');
@@ -23,6 +24,7 @@ app.set('view options', {layout: false});
 
 app.use(cookieParser());
 app.use(bodyParser());
+app.use(busboy());
 
 app.use(session({secret: 'darudeandthesandstorms'})); 
 app.use(passport.initialize());
