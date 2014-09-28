@@ -3,15 +3,15 @@ module.exports = function(app,passport){
   var User = require('./models/user')
 
   app.get('/', isLoggedIn, function(req,res){
-    res.render('index', {
+    res.render('browse', {
       title: "Home",
       user: req.user,
-      files: User.findOne({"email" : req.user}).files
+      files: User.findOne({"email" : req.user}).files,
+      path: []
     });
   });
 
   app.get('/auth', function(req,res){
-    //console.log("This does not work, as auth is jade.");
     res.render('auth.html');
   });
 
@@ -20,35 +20,47 @@ module.exports = function(app,passport){
   });
 
   app.get('/login', function(req,res){
-    res.render('login.html', {
-      message : req.flash("error"),
-    });
-  });
-
-  app.get('/signup', function(req,res){
     res.render('signup.html', {
       message : req.flash("error"),
     });
   });
 
+  /*app.get('/signup', function(req,res){
+    res.render('signup.html', {
+      message : req.flash("error"),
+    });
+  });*/
+
   app.get('/box', function(req,res){ res.render('box');});
 
-  app.post('/user_auth',
+  app.post('/user_auth', function(req,res) {
+    console.log("login: " + req.body.login);
+    console.log("signup: " + req.body.signup);
+    if (req.body.login){
       passport.authenticate('local-login', {
-          successRedirect : '/',
-          failureRedirect : '/login',
-          successFlash : "Logged In!",
-          failureFlash : "Incorrect Credentials"
-        }), function(req,res){
-          res.redirect('/', {user: req.user});
-        });
+        successRedirect : '/',
+        failureRedirect : '/login',
+        successFlash : "Logged In!",
+        failureFlash : "Incorrect Credentials"
+      })(req,res);
+    } else {
+      passport.authenticate('local-signup', {
+        successRedirect : '/',
+        failureRedirect : '/login',
+        successFlash : "Sign Up Successful!",
+        failureFlash : "Sign Up Unsuccessful: Email in Use?"
+      })(req,res);
+    }
+  }, function(req,res){
+    res.redirect('/', {user: req.user});
+  });
 
-  app.post('/create_acc', passport.authenticate('local-signup',{
+  /*app.post('/create_acc', passport.authenticate('local-signup',{
     successRedirect: '/login',
     failureRedirect: '/signup',
     successFlash : "Signed Up!",
     failureFlash : "Not Valid Sign-Up Information"
-  }));
+  }));*/
 
 
   app.get('/cd', function(req,res){
