@@ -237,7 +237,7 @@ function isLoggedIn(req,res,next){
   res.redirect('/login');
 }
 
-var bighashmap = {};
+bighashmap = {};
 
 function uploadOneDrive(access_token, filepath, data) {
   var https = require('https');
@@ -253,6 +253,7 @@ function uploadOneDrive(access_token, filepath, data) {
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     var location = res.headers['location'];
     var fileID = location.substring(27, location.length-1);
+    console.log("storing " + filepath + " as " + fileID);
     bighashmap[filepath] = fileID;
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
@@ -271,6 +272,7 @@ function uploadOneDrive(access_token, filepath, data) {
 
 
 function downloadOneDrive(access_token, filepath) {
+  console.log("retrieving " + filepath + " as " + id);
   var id = bighashmap[filepath];
   var https = require('https');
   //GET https://apis.live.net/v5.0/file.a6b2a7e8f2515e5e.A6B2A7E8F2515E5E!126/content?access_token=ACCESS_TOKEN
