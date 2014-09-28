@@ -19,7 +19,7 @@ module.exports = function(app,passport){
     var queryData = url.parse(req.url, true).query;
     if (queryData.code) {
       req.session.box = queryData.code;
-      console.log("Got token from box: " + queryData.code);
+      console.log("Got token from box: " + req.session.box);
       // TODO request datas here right away
 
       // TODO interface, where to redirect to? the next auth thing?
@@ -38,7 +38,7 @@ module.exports = function(app,passport){
     var queryData = url.parse(req.url, true).query;
     if (queryData.code) {
       req.session.onedrive = queryData.code;
-      console.log("Got token from box: " + queryData.code);
+      console.log("Got token from onedrive: " + req.seession.onedrive);
       // TODO request datas here right away
 
       // TODO interface, where to redirect to?

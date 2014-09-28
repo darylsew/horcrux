@@ -11,7 +11,6 @@ var express = require('express'),
     dropbox = require('dropbox'),
     flash = require('connect-flash');
 
-var auth = require('./auth');
 var web = require('./multicaster');
 var configDB = require('./config/database.js');
 
