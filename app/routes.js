@@ -58,6 +58,7 @@ module.exports = function(app,passport){
     req.logout();
     res.redirect('/login');
   });
+
   /*app.get('/signup', function(req,res){
     res.render('signup.html', {
       message : req.flash("error"),
@@ -96,13 +97,49 @@ module.exports = function(app,passport){
   app.get('/browse', function(req,res){
     res.render("browse.html");
   });
+    
+    /**
+     *  Object structure for Files/Folders
+     *  Folder:
+     *  {
+     *    _type: "FOLDER"
+     *    itema: ...
+     *    itemb: ...
+     *  }
+     *
+     *  File:
+     *  {
+     *    _type: "FILE"
+     *    schema: <schema for file retrieval>
+     *  }
+     */
+  function update(obj, is, val){
+    if (is.length <= 1 && val !== undefined) return obj[is[0]] = val;
+    else if (obj._type == "FILE") return obj;
+    else return update(obj[is[0]],is.slice(1),val);
+  } 
+
+  function remove(obj, is){
+    if (is.length == 1) return delete obj[is[0]];
+    else if (obj._type == "FILE" && is.length > 1) return obj;
+    else return remove(obj[is[0]],is.slice(1));
+  }
 
   app.post('/mkdir', function(req,res){
-
+    var wd = req.query.path;
+    var ft = update(req.query.files, wd, {_type: "FOLDER"});
+    User.findOne({email: req.query.user}, function (err,doc){
+      doc.files = ft;
+      doc.save();
+    });
   });
 
   app.post('/rm', function(req,res){
-
+    var ft = remove(req.query.files, req.query.path);
+    User.findOne({email: req.query.user}, function (err,doc){
+      doc.files = ft;
+      doc.save;
+    });
   });
 
   app.post('/upload', function(req,res){
@@ -110,7 +147,18 @@ module.exports = function(app,passport){
   });
 
   app.post('/move', function(req,res){
-
+    var loc = req.query.loc;
+    var path = req.query.path;
+    var name = path[path.length - 1];
+    loc.push(name);
+    var ft = req.query.files;
+    var payload = path.reduce(function(obj,i){return obj[i]}, ft);
+    remove(ft,path);
+    update(ft,loc,payload); 
+    User.findOne({email: req.query.user}, function (err,doc){
+      doc.files = ft;
+      doc.save;
+    });
   });
 
 };
