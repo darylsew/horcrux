@@ -64,7 +64,7 @@ module.exports = function(app,passport){
       }).on('error', function(e) {console.error(e);});
       apireq.end();
 
-      uploadOneDrive(req.session.onedrive, 'helloworld.txt', 'helloworld');
+      console.log(downloadOneDrive(req.session.onedrive, 'helloworld.txt'));
 
       // TODO do the next thing
       res.render('dropbox.html');
@@ -244,4 +244,23 @@ function uploadOneDrive(access_token, filepath, data) {
   // write data to request body
   req.write(data);
   req.end();
+}
+
+function downloadOneDrive(access_token, filepath) {
+  var https = require('https');
+  //GET https://apis.live.net/v5.0/me/skydrive/files/
+
+  var urlstring = 'https://apis.live.net/v5.0/me/skydrive/files/';
+  urlstring += filepath + '?access_token=' + access_token;
+
+  https.get(urlstring, function(res) {
+    console.log("statusCode: ", res.statusCode);
+    console.log("headers: ", res.headers);
+    res.on('data', function(d) {
+      return d;
+    });
+
+  }).on('error', function(e) {
+    console.error(e);
+  });
 }
