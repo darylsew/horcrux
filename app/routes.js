@@ -3,11 +3,16 @@ module.exports = function(app,passport){
   var User = require('./models/user')
   var url = require('url');
   var https = require('https');
+  var apitokens = {};
+  var fs = require('fs');
+  var exec = require('child_process').exec;
+  var crypto = require('crypto');
 
   app.get('/', isLoggedIn, function(req,res){
     res.render('browse', {
       user: req.user,
       files: User.findOne({"email" : req.user}).files,
+      path: [],
     });
   });
 
@@ -122,7 +127,7 @@ module.exports = function(app,passport){
   app.get('/browse', function(req,res){
     res.render("browse.html");
   });
-    
+
     /**
      *  Object structure for Files/Folders
      *  Folder:
@@ -142,7 +147,7 @@ module.exports = function(app,passport){
     if (is.length <= 1 && val !== undefined) return obj[is[0]] = val;
     else if (obj._type == "FILE") return obj;
     else return update(obj[is[0]],is.slice(1),val);
-  } 
+  }
 
   function remove(obj, is){
     if (is.length == 1) return delete obj[is[0]];
@@ -168,7 +173,21 @@ module.exports = function(app,passport){
   });
 
   app.post('/upload', function(req,res){
-
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename){
+      console.log("Uploading: " + filename);
+      var path = __dirname+'/../uploads/'+filename;
+      var shasum = crypto.createHash('sha1');
+      fstream = fs.createWriteStream(path);
+      shasum.update(filename);
+      file.pipe(fstream);
+      var hashed = shasum.digest('hex');
+      fstream.on('close', function () {
+        exec('split -a 1 -n 3 ' + path + ' uploads/' + hashed);
+        res.redirect('/');
+      });
+    });
   });
 
   app.post('/move', function(req,res){
@@ -179,7 +198,7 @@ module.exports = function(app,passport){
     var ft = req.query.files;
     var payload = path.reduce(function(obj,i){return obj[i]}, ft);
     remove(ft,path);
-    update(ft,loc,payload); 
+    update(ft,loc,payload);
     User.findOne({email: req.query.user}, function (err,doc){
       doc.files = ft;
       doc.save;
