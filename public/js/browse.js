@@ -9,6 +9,8 @@ $(document).ready(function(){
         url: '/upload',
         type: 'POST',
         data: {
+          files: {},
+          path: [""],
           file: file
         }
       });
