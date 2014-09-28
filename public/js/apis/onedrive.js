@@ -2,7 +2,7 @@ var CLIENT_ID = '000000004C128E10';
 var RESPONSE_TYPE = 'token';
 var SCOPES = 'wl.signin%20wl.skydrive%20wl.skydrive_update%20';
 var REDIRECT_URI = 'http://cafedaydream.com/onedrive';
-
+var DISPLAY_TYPE = 'popup'; // popup, touch, or none
 
 
 $(document).ready(function(){
@@ -21,6 +21,7 @@ $(document).ready(function(){
     url += '&response_type=' + RESPONSE_TYPE;
     url += '&scope=' + SCOPES;
     url += '&redirect_uri=' + REDIRECT_URI;
+    url += '&display=' + DISPLAY_TYPE;
     console.log(url);
     window.location = url;
 
