@@ -67,7 +67,10 @@ module.exports = function(app,passport){
 
       res.render('login.html');
     } else {
-      res.render('onedrive.html');
+      if (!req.session.onedrived) {
+        res.render('onedrive.html');
+        req.session.onedrived = true;
+      }
     }
   });
 

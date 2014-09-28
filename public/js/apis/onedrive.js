@@ -6,7 +6,7 @@ var REDIRECT_URI = 'http://cafedaydream.com/onedrive';
 
 
 $(document).ready(function(){
-  if (window.location.hash != "") {
+  if (window.location.hash.length > 0) {
     var access_token = window.location.hash.split('&')[0];
     access_token = access_token.substring(1, access_token.length);
     console.log("access token onedrive: " + access_token);
