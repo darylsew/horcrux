@@ -73,7 +73,7 @@ module.exports = function(app,passport){
         console.error(e);
       });
       //req.session.onedrivefreespace = res.available;
-      //apireq.end();
+      apireq.end();
 
       res.render('dropbox.html');
     } else {
