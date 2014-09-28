@@ -9,10 +9,13 @@ module.exports = function(app,passport){
   var crypto = require('crypto');
 
   app.get('/', isLoggedIn, function(req,res){
-    res.render('browse', {
-      user: req.user.email,
-      files: User.findOne({"email" : req.user.email}).files.stringify(),
-      path: [],
+    User.findOne({"email" : req.user.email}, function(err, user) {
+      if (err) return console.log('die');
+      res.render('browse', {
+        user: user.email,
+        files: JSON.stringify(user.files),
+        path: []
+      });
     });
   });
 

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+
+  console.log(username);
+
   $("button.upload").click(function(){
     $(this).blur();
     $(".uploadform > input[type=file]").click().change(function(){
