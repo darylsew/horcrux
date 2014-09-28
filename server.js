@@ -26,9 +26,7 @@ app.set('view options', {layout: false});
 app.use(cookieParser());
 app.use(bodyParser());
 
-app.use(session({
-  secret: 'darudeandthesandstorms',
-  apitokens: {}})); 
+app.use(session({secret: 'darudeandthesandstorms'})); 
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.use(flash());

@@ -18,7 +18,7 @@ module.exports = function(app,passport){
   app.get('/box', function(req,res){
     var queryData = url.parse(req.url, true).query;
     if (queryData.code) {
-      req.session.apitokens['box'] = queryData.code;
+      req.session.box = queryData.code;
       console.log("Got token from box: " + queryData.code);
       // TODO request datas here right away
 
@@ -37,7 +37,7 @@ module.exports = function(app,passport){
     //http://cafedaydream.com/onedrive?code=65eb3a0f-3f55-3973-18f9-11cb7d821a9c
     var queryData = url.parse(req.url, true).query;
     if (queryData.code) {
-      req.session.apitokens['onedrive'] = queryData.code;
+      req.session.onedrive = queryData.code;
       console.log("Got token from box: " + queryData.code);
       // TODO request datas here right away
 
