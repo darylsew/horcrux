@@ -11,7 +11,7 @@ module.exports = function(app,passport){
   app.get('/', isLoggedIn, function(req,res){
     res.render('browse', {
       user: req.user.email,
-      files: User.findOne({"email" : req.user.email}).files,
+      files: User.findOne({"email" : req.user.email}).files.stringify(),
       path: [],
     });
   });
