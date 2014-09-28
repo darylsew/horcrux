@@ -1,9 +1,9 @@
 $(document).ready(function(){
-  $("button.upload").click(function(){
-    $(".uploadform > input[type=file]").click().change(function(){
-      $(".uploadform > input[type=submit]").click();
-    });
-  });
+  //$("button.upload").click(function(){
+  //  $(".uploadform > input[type=file]").click().change(function(){
+  //    $(".uploadform > input[type=submit]").click();
+  //  });
+  //});
 
   $.ajax({
     url: '/upload',

@@ -64,21 +64,29 @@
       <div class="actions">
         <input  class="search" type="text"/>
         <button class="upload"/>
-        <button class="folder"/>
+        <button class="newfolder"/>
       </div>
       <table>
-        <tr>
-          <td class="folder">Folder1</td>
-          <td class="download">download</td>
-        </tr>
-        <tr>
-          <td class="folder">Folder2</td>
-          <td class="download">download</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Download link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="folder">Folder1</td>
+            <td class="download">download</td>
+          </tr>
+          <tr>
+            <td class="folder">Folder2</td>
+            <td class="download">download</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </main>
-  <section class="hidden">
+  <section>
     <form class="uploadform" action='/upload' method="post" enctype="multipart/form-data">
       <input type="file"/>
       <input type="submit"/>
