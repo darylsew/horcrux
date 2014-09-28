@@ -252,7 +252,7 @@ function uploadOneDrive(access_token, filepath, data) {
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     var location = JSON.parse(res.headers)['location'];
-    console.log(location);
+    console.log(JSON.stringify(location));
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
