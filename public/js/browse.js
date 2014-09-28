@@ -1,24 +1,31 @@
 $(document).ready(function(){
-  //$("button.upload").click(function(){
-  //  $(".uploadform > input[type=file]").click().change(function(){
-  //    $(".uploadform > input[type=submit]").click();
-  //  });
-  //});
+  $("button.upload").click(function(){
+    $(".uploadform > input[type=file]").click().change(function(){
+      var file = $(this).get(0).files.file;
+
+      // send file to be uploaded
+      $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: {
+          file: file
+        }
+      });
+
+    });
+  });
+
 
   $.ajax({
     url: '/upload',
     type: 'POST',
     data: {
       thing: "thang"
-      /*
-      payload : formData,
-      filename: $('#file_payload').val().split(/(\\|\)/g).pop(),
-      cwd : path
-      */
     }//,
     //cache: false,
     //contentType: false,
     //processData: false
   });
+
 
 });
