@@ -53,7 +53,7 @@ module.exports = function(app,passport){
       var options = {
         hostname: 'https://apis.live.net/v5.0/me/skydrive/quota?access_token=' + req.session.onedrive,
         port: 80,
-        path: '/',
+        path: '',
         method: 'GET'
       };
 
