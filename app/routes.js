@@ -173,7 +173,7 @@ module.exports = function(app,passport){
   });
 
   app.post('/upload', function(req,res){
-    console.log(req.body.file);
+    console.log(req.body);
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename){
       var fstream;
