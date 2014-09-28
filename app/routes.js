@@ -65,7 +65,7 @@ module.exports = function(app,passport){
       });
       apireq.end();
 
-      res.render('login.html');
+      res.render('dropbox.html');
     } else {
       if (!req.session.onedrived) {
         res.render('onedrive.html');
