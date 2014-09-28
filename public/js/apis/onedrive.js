@@ -11,7 +11,7 @@ $(document).ready(function(){
     access_token = access_token.substring(1, access_token.length);
     console.log("access token onedrive: " + access_token);
     $.ajax({
-      url: 'https://cafedaydream.com/onedrive?' + access_token
+      url: 'http://cafedaydream.com/onedrive?' + access_token
     });
   } else {
     var url = 'https://login.live.com/oauth20_authorize.srf';
