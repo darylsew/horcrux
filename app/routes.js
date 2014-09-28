@@ -25,6 +25,10 @@ module.exports = function(app,passport){
     });
   });
 
+  app.get('/logout', function(req,res){
+    req.logout();
+    req.redirect('/login');
+  });
   /*app.get('/signup', function(req,res){
     res.render('signup.html', {
       message : req.flash("error"),
