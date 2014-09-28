@@ -21,15 +21,13 @@ module.exports = function(app,passport){
 
   app.get('/login', function(req,res){
     res.render('login.html', {
-      e_message : req.flash("error"),
-      i_message : req.flash("info")
+      message : req.flash("error"),
     });
   });
 
   app.get('/signup', function(req,res){
     res.render('signup.html', {
-      e_message : req.flash("error"),
-      i_message : req.flash("info")
+      message : req.flash("error"),
     });
   });
 
