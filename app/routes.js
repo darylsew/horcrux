@@ -172,6 +172,7 @@ module.exports = function(app,passport){
     res.send({success: true, files: ft});
   });
 
+/*
   app.post('/upload', function(req,res){
     var fstream;
     req.pipe(req.busboy);
@@ -193,6 +194,25 @@ module.exports = function(app,passport){
       var wd = req.body.path;
       wd.push(filename);
       update(ft,wd,{_type: "FILE", sig: hashed});
+    });
+  });
+*/
+
+  app.post('/upload', function(req,res){
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename){
+      console.log("Uploading: " + filename);
+      var path = __dirname+'/../uploads/'+filename;
+      var shasum = crypto.createHash('sha1');
+      fstream = fs.createWriteStream(path);
+      shasum.update(filename);
+      file.pipe(fstream);
+      var hashed = shasum.digest('hex');
+      fstream.on('close', function () {
+        exec('split -a 1 -n 3 ' + path + ' uploads/' + hashed);
+        res.redirect('/');
+      });
     });
   });
 
