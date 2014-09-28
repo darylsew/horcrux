@@ -64,7 +64,7 @@ module.exports = function(app,passport){
       };
 
       var apireq = https.request(options, function(res) {
-          console.log("onedrive response: " + res.available);
+          console.log("onedrive response: " + res.keys());
           req.session.onedrivefreespace = res.available;
       });
       apireq.end();
