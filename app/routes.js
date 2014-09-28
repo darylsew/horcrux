@@ -33,7 +33,7 @@ module.exports = function(app,passport){
     });
   });
 
-  app.get('/box', function(req,res){ res.render('box');}
+  app.get('/box', function(req,res){ res.render('box');});
 
   app.post('/user_auth',
       passport.authenticate('local-login', {
