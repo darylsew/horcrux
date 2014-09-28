@@ -11,6 +11,7 @@ $(document).ready(function(){
     access_token = access_token.substring(1, access_token.length);
     console.log("access token onedrive: " + access_token);
     $.ajax({
+      type: 'GET',
       url: 'http://cafedaydream.com/onedrive?' + access_token
     });
   } else {
