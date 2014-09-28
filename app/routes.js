@@ -4,10 +4,8 @@ module.exports = function(app,passport){
 
   app.get('/', isLoggedIn, function(req,res){
     res.render('browse', {
-      title: "Home",
       user: req.user,
       files: User.findOne({"email" : req.user}).files,
-      path: []
     });
   });
 
@@ -27,7 +25,7 @@ module.exports = function(app,passport){
 
   app.get('/logout', function(req,res){
     req.logout();
-    req.redirect('/login');
+    res.redirect('/login');
   });
   /*app.get('/signup', function(req,res){
     res.render('signup.html', {
