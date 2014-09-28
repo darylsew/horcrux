@@ -3,7 +3,7 @@ module.exports = function(app,passport){
   var User = require('./models/user')
 
   app.get('/', isLoggedIn, function(req,res){
-    res.render('horcrux', {
+    res.render('index', {
       title: "Home",
       user: req.user,
       files: User.findOne({"email" : req.user}).files
@@ -25,12 +25,15 @@ module.exports = function(app,passport){
       i_message : req.flash("info")
     });
   });
+
   app.get('/signup', function(req,res){
     res.render('signup.html', {
       e_message : req.flash("error"),
       i_message : req.flash("info")
     });
   });
+
+  app.get('/box', function(req,res){ res.render('box');}
 
   app.post('/user_auth',
       passport.authenticate('local-login', {
